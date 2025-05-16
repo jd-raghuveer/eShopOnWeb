@@ -12,6 +12,11 @@ public class SlugifyParameterTransformer : IOutboundParameterTransformer
         if (string.IsNullOrEmpty(str)) { return null; }
 
         // Slugify value
-        return Regex.Replace(str, "([a-z])([A-Z])", "$1-$2").ToLower();
+        var pattern = "([a-z])([A-Z])";
+        var replacement = "$1-$2";
+        var timeout = TimeSpan.FromSeconds(1); // Set appropriate timeout
+
+        string result = Regex.Replace(str, pattern, replacement, RegexOptions.None, timeout).ToLower();
+
     }
 }
